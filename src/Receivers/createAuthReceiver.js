@@ -1,4 +1,4 @@
-const { generateMainPIN, createPINReloadScript } = require('../Utils/Utils.js');
+const { generateMainPIN, createPINReloadScript, reloadMessage } = require('../Utils/Utils.js');
 const request = require('node-superfetch');
 
 async function createReceiver(req, res, app) {
@@ -18,7 +18,7 @@ async function createReceiver(req, res, app) {
   });
   setTimeout(()=>{
     createModifiedPath = (req, res) => {
-      res.send('<p style="font-size: 40px">EXPIRED URL</p>')
+      res.send(reloadMessage)
     }
   }, 20000);
   return { REQUESTURL: receiverURL, AUTHORIZATIONPIN: mainPINAuth };
