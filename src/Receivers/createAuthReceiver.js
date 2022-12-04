@@ -1,4 +1,4 @@
-const { generateMainPIN } = require('../Utils/Utils.js');
+const { generateMainPIN, createPINReloadScript } = require('../Utils/Utils.js');
 const request = require('node-superfetch');
 
 async function createReceiver(req, res, app) {
@@ -11,7 +11,7 @@ async function createReceiver(req, res, app) {
   let mainPINAuth = generateMainPIN(6);
   console.log(receiverURL);
   function createModifiedPath(req, res){
-    res.send(`<p style="font-size: 35px;">YOUR PIN: ${mainPINAuth}</p><br style="font-size: 18px;">This link will expire in 3 minutes</br><script>setTimeout(()=>document.write('<p style="font-size: 40px;">STILL THERE? RELOAD THE PAGE TO ACCESS THE CODE</p>'), 15000);</script>`);
+    res.send(createPINReloadScript(mainAuthPIN));
   }
     app.get(`/proccessAUTH/${urlPIN}`, function(req, res) {
       createModifiedPath(req, res);
