@@ -1,6 +1,12 @@
 const { generateMainPIN, createPINReloadScript, reloadMessage } = require('../Utils/Utils.js');
 const request = require('node-superfetch');
 
+/**
+ * import * as express from "express";
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ * @param {express.Express} app 
+ */
 async function createReceiver(req, res, app) {
   let baseURL = 'https://ehtoauth9u.hisoka17.repl.co';
   let urlPIN = generateMainPIN(21);
