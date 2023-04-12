@@ -1,12 +1,24 @@
 class Utils {
 
-  static generateMainPIN(chars) {
+  static generateMainPIN(chars, type=null) {
     let numList = '0123456789';
+    let charList = "abcdefghijklmnopqrstuvwxyz";
     let generatedPin = '';
+  if (!type||type==="nums"){
     for (let i = 0; i < chars; i++) {
       generatedPin += numList[Math.floor(Math.random() * 10)];
     }
-    return generatedPin;
+  } else {
+    if (type && type==="mixed"){
+      for (let i = 0; i < chars/2; i++){
+        generatedPin += numList[Math.floor(Math.random() * 10)];
+      };
+      for (let i = 0; i < chars/2; i++){
+        generatedPin += charList[Math.floor(Math.random() * charList["length"])];
+      }
+    }
+  }
+    return [...generatedPin].sort(()=>{return 0.5-Math.random()}).join('');
   }
 
   static createPINReloadScript(PIN) {

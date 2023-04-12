@@ -1,4 +1,5 @@
 const createReceiver = require('./Receivers/createAuthReceiver.js');
+const bodyParser = require('body-parser')
 
 class MainServer{
 
@@ -16,11 +17,11 @@ constructor(server){
   },3600000);
 }
 createListeners(){
-  this.server.post('/requestAuthorizationPRS', (req, res) => {
+  this.server.post('/requestAuthorizationPRS', bodyParser.json(), (req, res) => {
   return createReceiver(req, res, this.server)
     .then(function(result) {
       return res.send(result).status(200);
-    }).catch(() => { return res.json({ error: 'UNKNOWN INTERNAL SERVER ERROR' }).status(500) });
+    }).catch((e) => { res.json({ error: 'UNKNOWN INTERNAL SERVER ERROR' }).status(500); console.log(e) });
 });
   this.server.use((req, res)=>{
     res.send('<p style="font-size: 60px; font-weight:bold;">THE PATH YOU ARE LOOKING FOR HAS EITHER EXPIRED OR DOES NOT EXIST</p>').status(404);
@@ -37,7 +38,7 @@ runServer(){
 resetServer(){
   (()=>{
     this.server.routes = {};
-    this.sockets.forEach(socket=>socket.?destroy());this.sockets=[];
+    this.sockets.forEach(socket=>socket.destroy());this.sockets=[];
     this.restartedIntervals++;
     console.log(`SERVER RESETING; ALL SOCKETS DESTROYED | ALL ROUTED DELETED\nRESTART #${this.restartedIntervals}`);
 
