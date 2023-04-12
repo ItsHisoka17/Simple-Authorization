@@ -37,7 +37,7 @@ runServer(){
 resetServer(){
   (()=>{
     this.server.routes = {};
-    this.sockets.forEach(socket=>socket.destroy());this.sockets=[];
+    this.sockets.forEach(socket=>socket.?destroy());this.sockets=[];
     this.restartedIntervals++;
     console.log(`SERVER RESETING; ALL SOCKETS DESTROYED | ALL ROUTED DELETED\nRESTART #${this.restartedIntervals}`);
 
