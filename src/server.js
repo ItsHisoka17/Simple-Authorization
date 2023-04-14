@@ -23,9 +23,9 @@ createListeners(){
       return res.send(result).status(200);
     }).catch((e) => { res.json({ error: 'UNKNOWN INTERNAL SERVER ERROR' }).status(500); console.log(e) });
 });
-  /*this.server.use((req, res)=>{
+  this.server.use((req, res)=>{
     res.send('<p style="font-size: 60px; font-weight:bold;">THE PATH YOU ARE LOOKING FOR HAS EITHER EXPIRED OR DOES NOT EXIST</p>').status(404);
-  })*/
+  })
   
 }
 
