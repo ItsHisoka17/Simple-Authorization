@@ -8,12 +8,12 @@ const request = require('node-superfetch');
  * @param {express.Express} app 
  */
 async function createReceiver(req, res, app) {
-  let baseURL = 'https://ehtoauth9u.hisoka17.repl.co';
+  
+    let baseURL = 'https://localhost:3000';
   let urlPIN = generateMainPIN(21, 'mixed');
   let receiverURL = `proccessAUTH/${urlPIN}`;
   let mainURL = `${baseURL}/${receiverURL}`;
-  console.log(...[mainURL], receiverURL);
-  console.log(mainURL);
+
   if ((await request.get(`${baseURL}/${receiverURL}`).ok)) {
     return createReceiver(req, res, app);
   };
