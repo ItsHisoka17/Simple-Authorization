@@ -9,7 +9,7 @@ const request = require('node-superfetch');
  */
 async function createReceiver(req, res, app) {
   
-    let baseURL = 'https://localhost:3000';
+  let baseURL = 'https://localhost:3000';
   let urlPIN = generateMainPIN(21, 'mixed');
   let receiverURL = `proccessAUTH/${urlPIN}`;
   let mainURL = `${baseURL}/${receiverURL}`;
