@@ -10,7 +10,7 @@ class Mailhandler {
     let jwt = new google.auth.JWT(
     authParams.clientEmail,
     authParams.clientPass,
-    ["https://www.googleapis.com/auth/gmail.send"],
+  ["https://www.googleapis.com/auth/gmail.send"],
     this.target
    );
    await jwt.authorize();
@@ -32,9 +32,13 @@ class Mailhandler {
   }
 };
   async sendMail(params){
+    
     let encodedSubject = `=?utf-8?B?${Buffer.from(params.subject, 'utf-8').toString('base64')}?=`;
+    
     let mimeMessage = `From: ${authParams.clientEmail}\r\nTo: ${this.recepient}\r\nSubject: ${encodedSubject}\r\nContent-Type: text/plain; charset=UTF-8\r\n\r\n${params.message}`;
+    
     let raw = encodedContent = Buffer.from(mimeMessage, 'utf-8').toString('base64').replace(/\+/g, '-').replace(/\//g, '_'); 
+    
   try {
     let response = await client.users.messages.send({
       userId: 'me',
@@ -55,3 +59,5 @@ class Mailhandler {
     )};
   };
 };
+
+module.exports = MailHandler;
