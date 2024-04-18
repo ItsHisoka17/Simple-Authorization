@@ -17,9 +17,9 @@ class Mailhandler {
    this.client = new google.gmail({version: "v1", jwt});
    console.log(
     {
-    message: "Initilization Successful",
-    status: 200
-  }
+     message: "Initilization Successful",
+     status: 200
+    }
   )
   } catch (e) {
    console.log(
@@ -31,32 +31,36 @@ class Mailhandler {
    )
   }
 };
-  async sendMail(params){
+  async sendMail({subject, message}){
     
-    let encodedSubject = `=?utf-8?B?${Buffer.from(params.subject, 'utf-8').toString('base64')}?=`;
+    let encodedSubject, mimeMessage, raw;
+    encodedSubject = `=?utf-8?B?${Buffer.from(subject, 'utf-8').toString('base64')}?=`;
     
-    let mimeMessage = `From: ${authParams.clientEmail}\r\nTo: ${this.recepient}\r\nSubject: ${encodedSubject}\r\nContent-Type: text/plain; charset=UTF-8\r\n\r\n${params.message}`;
+    mimeMessage = `From: ${authParams.clientEmail}\r\nTo: ${this.recepient}\r\nSubject: ${encodedSubject}\r\nContent-Type: text/plain; charset=UTF-8\r\n\r\n${message}`;
     
-    let raw = encodedContent = Buffer.from(mimeMessage, 'utf-8').toString('base64').replace(/\+/g, '-').replace(/\//g, '_'); 
+    raw = encodedContent = Buffer.from(mimeMessage, 'utf-8').toString('base64').replace(/\+/g, '-').replace(/\//g, '_'); 
     
   try {
-    let response = await client.users.messages.send({
+    client.users.messages.send({
       userId: 'me',
       requestBody: {raw}
-  });
+  }).then(function(res){
 
-  console.log({
-    message: "Message Sent",
-     status: response.status
+  console.log(
+    {
+     message: "Message Sent",
+     status: 200
+    }
+  );
   });
   } catch (e) {
-    console.log({
+    console.log(
       {
         message: "Error Sending Mail",
         error: e,
         status: 500
        };
-    )};
+    );
   };
 };
 
