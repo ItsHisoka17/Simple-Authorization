@@ -1,7 +1,7 @@
 const { google, gmail_v1} = require("googleapis");
 const { authParams } = require("./RequestParams.js")
 
-class Mailhandler {
+class MailHandler {
   constructor(recepient){
     this.target = recepient;
   }
@@ -27,7 +27,7 @@ class Mailhandler {
        message: "Initilization Failed",
        error: e,
        status: 500
-     };
+     }
    )
   }
 };
@@ -38,7 +38,7 @@ class Mailhandler {
     
     mimeMessage = `From: ${authParams.clientEmail}\r\nTo: ${this.recepient}\r\nSubject: ${encodedSubject}\r\nContent-Type: text/plain; charset=UTF-8\r\n\r\n${message}`;
     
-    raw = encodedContent = Buffer.from(mimeMessage, 'utf-8').toString('base64').replace(/\+/g, '-').replace(/\//g, '_'); 
+    raw = Buffer.from(mimeMessage, 'utf-8').toString('base64').replace(/\+/g, '-').replace(/\//g, '_'); 
     
   try {
     client.users.messages.send({
@@ -59,9 +59,9 @@ class Mailhandler {
         message: "Error Sending Mail",
         error: e,
         status: 500
-       };
+       }
     );
   };
 };
-
+}
 module.exports = MailHandler;

@@ -17,14 +17,16 @@ constructor(server){
   },3600000);
 }
 createListeners(){
-
-this.server.post('/requestAuthorizationPRS', bodyParser.json(), (req, res) => {
+ this.server.post('/requestAuthorizationPRS', 
+ bodyParser.json(), (req, res) => {
   return createReceiver(req, res, this.server)
     .then(function(result) {
       return res.send(result).status(200);
-    }).catch((e) => { res.json({ error: 'UNKNOWN INTERNAL SERVER ERROR' }).status(500); console.log(e) });
+    }).catch((e) => { res.json({ error: 
+ 'UNKNOWN INTERNAL SERVER ERROR' }).status(500); console.log(e) });
 });
-
+};
+  
 runServer(){
   let app = this.server;
   app.listen(3000, function() {
