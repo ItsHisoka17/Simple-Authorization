@@ -90,8 +90,10 @@ async function createReceiver(req, res, app) {
       subject: "YOUR AUTHORIZATION CODE",
       message: `Please click open [This Link](${mainURL}) | And enter the following PIN: ${mainAuthPIN}`,
     })
-    .then(({ status }) => {
+    .then((res) => {
+      let status;
       let oauth;
+      status = res ? res["status"] : 500;
       if (status === 200) {
         app.post(
           `/${receiverURL}/authorize_user`,
