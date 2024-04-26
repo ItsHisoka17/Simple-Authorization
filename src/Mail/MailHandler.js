@@ -9,6 +9,7 @@ class MailHandler {
     try {
       let jwt = new google.auth.JWT(
         authParams.clientEmail,
+        undefined,
         authParams.clientPass,
         ["https://www.googleapis.com/auth/gmail.send"],
         this.target,
