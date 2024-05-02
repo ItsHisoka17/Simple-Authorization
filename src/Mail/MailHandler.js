@@ -26,7 +26,8 @@ class MailHandler {
         error: e,
         status: 500,
       });
-    }
+    };
+    return this.sendMail();
   }
   async sendMail({ subject, message }) {
     let encodedSubject, mimeMessage, raw;
@@ -61,3 +62,4 @@ class MailHandler {
   }
 }
 module.exports = MailHandler;
+ 

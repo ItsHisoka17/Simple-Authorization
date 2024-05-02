@@ -84,9 +84,8 @@ async function createReceiver(req, res, app) {
       res.send(reloadMessage);
     };
   }, expiry);
-  mail.initialize();
-  mail
-    .sendMail({
+  let client = await mail.initialize();
+    client.sendMail({
       subject: "YOUR AUTHORIZATION CODE",
       message: `Please click open [This Link](${mainURL}) | And enter the following PIN: ${mainAuthPIN}`,
     })
